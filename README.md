@@ -1,4 +1,6 @@
 # GlacierVelocity
 
-Graph for the Graph Builder in Sentinel Application Platform (SNAP) using data from Copernicus Open Access Hub to produce and visualize glacier velocity.
+Graph for the Sentinel Application Platform (SNAP) Graph Builder that generates and visualizes glacier velocity using Copernicus Open Access Hub Sentinel 1A time series data.
+
+
 
