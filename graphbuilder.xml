@@ -1,0 +1,126 @@
+<graph id="Graph">
+  <version>1.0</version>
+  <node id="Read">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>C:\Users\Deepak Chand\S1A_IW_GRDH_1SDV_20221219T001132_20221219T001157_046393_058EBE_7894_Orb_NR_Cal.dim</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,25540,16747</pixelRegion>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="Read(2)">
+    <operator>Read</operator>
+    <sources/>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <useAdvancedOptions>false</useAdvancedOptions>
+      <file>C:\Users\Deepak Chand\S1A_IW_GRDH_1SDV_20221101T001134_20221101T001159_045693_0576F9_2405_Orb_NR_Cal.dim</file>
+      <copyMetadata>true</copyMetadata>
+      <bandNames/>
+      <pixelRegion>0,0,25537,16747</pixelRegion>
+      <maskNames/>
+    </parameters>
+  </node>
+  <node id="DEM-Assisted-Coregistration">
+    <operator>DEM-Assisted-Coregistration</operator>
+    <sources>
+      <sourceProduct refid="Read(2)"/>
+      <sourceProduct.1 refid="Read"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <demName>GETASSE30</demName>
+      <demResamplingMethod>BICUBIC_INTERPOLATION</demResamplingMethod>
+      <externalDEMFile/>
+      <externalDEMNoDataValue>0.0</externalDEMNoDataValue>
+      <resamplingType>BISINC_5_POINT_INTERPOLATION</resamplingType>
+      <tileExtensionPercent>50</tileExtensionPercent>
+      <maskOutAreaWithoutElevation>true</maskOutAreaWithoutElevation>
+      <outputRangeAzimuthOffset>false</outputRangeAzimuthOffset>
+    </parameters>
+  </node>
+  <node id="Subset">
+    <operator>Subset</operator>
+    <sources>
+      <sourceProduct refid="DEM-Assisted-Coregistration"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <sourceBands/>
+      <tiePointGrids/>
+      <region>0,0,0,0</region>
+      <referenceBand/>
+      <geoRegion>POLYGON ((87.7718505859375 27.08603286743164, 85.47217559814453 27.08603286743164, 85.47217559814453 29.013580322265625, 87.7718505859375 29.013580322265625, 87.7718505859375 27.08603286743164, 87.7718505859375 27.08603286743164))</geoRegion>
+      <subSamplingX>1</subSamplingX>
+      <subSamplingY>1</subSamplingY>
+      <fullSwath>false</fullSwath>
+      <copyMetadata>true</copyMetadata>
+    </parameters>
+  </node>
+  <node id="Offset-Tracking">
+    <operator>Offset-Tracking</operator>
+    <sources>
+      <sourceProduct refid="Subset"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <gridAzimuthSpacing>60</gridAzimuthSpacing>
+      <gridRangeSpacing>60</gridRangeSpacing>
+      <registrationWindowWidth>128</registrationWindowWidth>
+      <registrationWindowHeight>128</registrationWindowHeight>
+      <xCorrThreshold>0.1</xCorrThreshold>
+      <registrationOversampling>16</registrationOversampling>
+      <averageBoxSize>5</averageBoxSize>
+      <maxVelocity>5.0</maxVelocity>
+      <radius>4</radius>
+      <resamplingType>BICUBIC_INTERPOLATION</resamplingType>
+      <spatialAverage>true</spatialAverage>
+      <fillHoles>true</fillHoles>
+      <roiVector/>
+    </parameters>
+  </node>
+  <node id="Write(2)">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Offset-Tracking"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>E:\SNAP\glacier\Subset_S1A_IW_GRDH_1SDV_20221101T001134_20221101T001159_045693_0576F9_2405_Orb_NR_Cal_Stack_Vel.jp2</file>
+      <formatName>JPEG2000</formatName>
+    </parameters>
+  </node>
+  <node id="Write">
+    <operator>Write</operator>
+    <sources>
+      <sourceProduct refid="Subset"/>
+    </sources>
+    <parameters class="com.bc.ceres.binding.dom.XppDomElement">
+      <file>E:\SNAP\glacier\Subset_S1A_IW_GRDH_1SDV_20221101T001134_20221101T001159_045693_0576F9_2405_Orb_NR_Cal_Stack</file>
+      <formatName>BMP</formatName>
+    </parameters>
+  </node>
+  <applicationData id="Presentation">
+    <Description/>
+    <node id="Read">
+            <displayPosition x="37.0" y="134.0"/>
+    </node>
+    <node id="Read(2)">
+      <displayPosition x="44.0" y="244.0"/>
+    </node>
+    <node id="DEM-Assisted-Coregistration">
+      <displayPosition x="157.0" y="193.0"/>
+    </node>
+    <node id="Subset">
+      <displayPosition x="382.0" y="204.0"/>
+    </node>
+    <node id="Offset-Tracking">
+      <displayPosition x="408.0" y="136.0"/>
+    </node>
+    <node id="Write(2)">
+      <displayPosition x="514.0" y="156.0"/>
+    </node>
+    <node id="Write">
+            <displayPosition x="513.0" y="219.0"/>
+    </node>
+  </applicationData>
+</graph>
